@@ -38,7 +38,8 @@ const pug = {
 var config = {
   mode: 'production',
   entry: {
-    content: './src/chrome-extension/content.js'
+    content: './src/chrome-extension/content.js',
+    index: './src/redirect/index.pug'
   },
   output: {
     path: __dirname + '/dist',
@@ -49,7 +50,7 @@ var config = {
   },
   watch: true,
   resolve: {
-    extensions: ['.js', '.json']
+    extensions: ['.js', '.json', '.jsx']
   },
   resolveLoader: {
     modules: [

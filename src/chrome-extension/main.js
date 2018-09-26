@@ -1,22 +1,22 @@
 /**
  * init start
  */
-import {
-  createElementFromHTML
-} from './helpers'
-import './style.styl'
-/* eslint-disable-next-line */
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './app'
-
 let inited = false
 
+function onMsg(e) {
+  if (e.data && e.data.type === 'ab-msg') {
+    let input = document.querySelector('textarea.cs-textarea')
+    let submit = document.querySelector('div.b-btn')
+    input.value = e.data.text
+    submit.click()
+    window.postMessage({
+      type: 'ab-done'
+    }, '*')
+  }
+}
+
 function init () {
-  inited = true
-  let dom = createElementFromHTML('<div id="ar"></div>')
-  document.body.append(dom)
-  ReactDOM.render(<App />, dom)
+  window.addEventListener('message', onMsg)
 }
 
 export default () => {

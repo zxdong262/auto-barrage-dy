@@ -13,5 +13,12 @@ html(lang='en')
   body
     #main.rc-pd3
       | loading...
-    #err.rc-pd1t.rc-pd3b.rc-pd3x
+    #app
+    script(src='https://unpkg.com/react@16/umd/react.production.min.js', crossorigin)
+    script(src='https://unpkg.com/react@16/umd/react-dom.production.min.js', crossorigin)
+    script.
+      window.et = {}
+      window.et.onload = function() {
+        document.body.removeChild(document.getElementById('main'));
+      };
     script(src='./index.bundle.js')
