@@ -3,7 +3,7 @@ const extend = require('recursive-assign')
 let config = {
   devCPUCount: os.cpus().length,
   devPort: 8020,
-  minimize: false
+  minimize: true
 }
 
 try {

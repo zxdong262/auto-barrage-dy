@@ -1,7 +1,7 @@
 
 const webpack = require('webpack')
 const sysConfigDefault = require('./config.default')
-const ExtraneousFileCleanupPlugin = require('webpack-extraneous-file-cleanup-plugin')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
 const packThreadCount = sysConfigDefault.devCPUCount // number
 const HappyPack = require('happypack')
 const happyThreadPool = packThreadCount === 0 ? null : HappyPack.ThreadPool({ size: packThreadCount })
@@ -21,10 +21,7 @@ const stylusSettingPlugin =  new webpack.LoaderOptionsPlugin({
   }
 })
 
-const opts = {
-  extensions: ['.map', '.js'],
-  minBytes: 3789
-}
+const url = `http://localhost:${sysConfigDefault.devPort}`
 
 const pug = {
   loader: 'pug-html-loader',
@@ -36,14 +33,14 @@ const pug = {
 }
 
 var config = {
-  mode: 'production',
+  mode: 'development',
   entry: {
-    content: './src/chrome-extension/content.js',
-    index: './src/redirect/index.pug'
+    index: './src/app/index.pug',
+    app: './src/js/index.jsx'
   },
   output: {
-    path: __dirname + '/dist',
-    filename: '[name].js',
+    path: __dirname + '/app',
+    filename: '[name].bundle.js',
     publicPath: '/',
     chunkFilename: '[name].[hash].js',
     libraryTarget: 'var'
@@ -56,10 +53,6 @@ var config = {
     modules: [
       path.join(process.cwd(), 'node_modules')
     ]
-  },
-  optimization: {
-    // We no not want to minimize our code.
-    minimize: sysConfigDefault.minimize
   },
   module: {
     rules: [
@@ -102,7 +95,7 @@ var config = {
       {
         test: /\.pug$/,
         use: [
-          'file-loader?name=../app/redirect.html',
+          'file-loader?name=index.html',
           'concat-loader',
           'extract-loader',
           'html-loader',
@@ -119,8 +112,22 @@ var config = {
       collections: true,
       paths: true
     }),
-    new ExtraneousFileCleanupPlugin(opts)
-  ]
+    new OpenBrowserPlugin({
+      url
+    })
+  ],
+  devServer: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    },
+    contentBase: path.join(__dirname, 'app/'),
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    host: '0.0.0.0',
+    port: sysConfigDefault.devPort
+  }
 }
 
 module.exports = config
