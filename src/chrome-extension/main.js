@@ -26,10 +26,10 @@ function onClick(e) {
   let {classList} = target
   if (classList.contains('autobb-hide')) {
     document.getElementById('autobb')
-      .classList.remove('autobb-hide-to-side')
+      .classList.add('autobb-hide-to-side')
   } else if (classList.contains('autobb-show')) {
     document.getElementById('autobb')
-      .classList.add('autobb-hide-to-side')
+      .classList.remove('autobb-hide-to-side')
   }
 }
 
@@ -41,7 +41,7 @@ function renderApp() {
   elem = createElementFromHTML(
     `
     <div id="autobb" class="animate autobb-wrap" draggable="false">
-      <div class="autobb-control pd1y">
+      <div class="autobb-control pd1y alignright">
         <span class="autobb-toggle autobb-hide">收起</span>
         <span class="autobb-toggle autobb-show">展开</span>
       </div>
