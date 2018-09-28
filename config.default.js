@@ -3,7 +3,10 @@ const extend = require('recursive-assign')
 let config = {
   devCPUCount: os.cpus().length,
   devPort: 8020,
-  minimize: true
+  minimize: true,
+  siteConfigs: {
+    appUrl: 'https://zxdong262.github.io/auto-barrage-dy/app/index.html'
+  }
 }
 
 try {

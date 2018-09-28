@@ -277,8 +277,13 @@ export default class App extends React.PureComponent {
     return (
       <div id="ardy">
         <div className="ardy-content pd2">
-          <h1 className="pd2y">
-            批城手扶独轮车
+          <h1 className="pd2y" className="iblock mg1r" target="_blank">
+            <a href="https://www.douyu.com/t/HHW">
+              <img
+                src={require('../../dist/icons/rc32.png')}
+              />
+            </a>
+            <span className="iblock">批城手扶弹幕独轮车</span>
           </h1>
           <AutoForm
             stop={this.stop}

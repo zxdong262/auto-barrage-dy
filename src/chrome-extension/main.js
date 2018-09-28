@@ -16,7 +16,12 @@ function onMsg(e) {
   }
 }
 
+function renderApp() {
+
+}
+
 function init () {
+  renderApp()
   window.addEventListener('message', onMsg)
 }
 
