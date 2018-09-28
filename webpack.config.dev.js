@@ -7,12 +7,15 @@ const HappyPack = require('happypack')
 const happyThreadPool = packThreadCount === 0 ? null : HappyPack.ThreadPool({ size: packThreadCount })
 const path = require('path')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+const pack = require('./package.json')
+const git = require('git-rev-sync')
 
 const happyConf = {
   loaders: ['babel-loader'],
   threadPool: happyThreadPool,
   verbose: true
 }
+let version = pack.version + '-' + git.long()
 
 const stylusSettingPlugin =  new webpack.LoaderOptionsPlugin({
   test: /\.styl$/,
@@ -27,7 +30,10 @@ const pug = {
   loader: 'pug-html-loader',
   options: {
     data: {
-      _global: {}
+      version,
+      _global: {
+        version
+      }
     }
   }
 }

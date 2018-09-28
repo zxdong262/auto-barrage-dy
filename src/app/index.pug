@@ -3,6 +3,8 @@ html(lang='en')
   head
     meta(name='viewport', content='width=device-width, initial-scale=1')
     meta(charset='UTF-8')
+    link(rel='icon' href='./favicon.ico' type='image/x-icon')
+    link(rel='shortcut icon' href='./favicon.ico' type='image/x-icon')
     title Redirect
   body
     #main.rc-pd3
@@ -15,4 +17,4 @@ html(lang='en')
       window.et.onload = function() {
         document.body.removeChild(document.getElementById('main'));
       };
-    script(src='./app.bundle.js', onload="window.et.onload()")
+    script(src='./app.bundle.js?' + version, onload="window.et.onload()")
