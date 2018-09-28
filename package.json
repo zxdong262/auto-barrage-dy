@@ -9,7 +9,7 @@
     "start": "npm run build",
     "c": "./node_modules/.bin/webpack-dev-server --config  webpack.config.dev.js --hot --progress --colors --content-base app/",
     "postinstall": "node bin/post-install",
-    "lint": "./node_modules/.bin/eslint --max-warnings 0 --ext .js  src"
+    "lint": "./node_modules/.bin/eslint --max-warnings 0 --ext .js src"
   },
   "repository": {
     "type": "git",

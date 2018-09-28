@@ -1,4 +1,4 @@
-import _ from 'lodash'
+//import _ from 'lodash'
 
 export function createElementFromHTML(htmlString) {
   var div = document.createElement('div')
