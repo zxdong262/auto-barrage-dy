@@ -6,7 +6,7 @@ Auto barrage chrome extension.
 1. build `content.js`
 ```bash
 git clone https://github.com/zxdong262/hauto-barrage-dy.git
-cd hauto-barrage-dy
+cd auto-barrage-dy
 npm i
 
 # build content.js first, with webpack
