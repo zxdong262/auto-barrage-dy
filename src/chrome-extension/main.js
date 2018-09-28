@@ -9,7 +9,8 @@ function onMsg(e) {
     let submit = document.querySelector('div.b-btn')
     input.value = e.data.text
     submit.click()
-    window.postMessage({
+    let rc = document.querySelector('#autob-frame')
+    rc && rc.contentWindow && rc.contentWindow.postMessage({
       type: 'ab-done'
     }, '*')
   }

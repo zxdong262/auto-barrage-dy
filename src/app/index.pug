@@ -21,4 +21,4 @@ html(lang='en')
       window.et.onload = function() {
         document.body.removeChild(document.getElementById('main'));
       };
-    script(src='./app.bundle.js')
+    script(src='./app.bundle.js', onload="window.et.onload()")

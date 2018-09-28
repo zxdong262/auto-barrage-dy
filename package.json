@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack --progress -w",
+    "build-app": "NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.dev.js --progress",
     "start": "npm run build",
     "c": "./node_modules/.bin/webpack-dev-server --config  webpack.config.dev.js --hot --progress --colors --content-base app/",
     "postinstall": "node bin/post-install",

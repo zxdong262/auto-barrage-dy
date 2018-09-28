@@ -30,7 +30,7 @@ class AutoForm extends Component {
     const {
       text,
       repeat = 10,
-      sep = 20
+      sep = 5
     } = this.props
     return (
       <Form
@@ -40,7 +40,7 @@ class AutoForm extends Component {
       >
         <FormItem
           {...formItemLayout}
-          label="要重复发送的弹幕"
+          label="请输入弹幕"
           hasFeedback
         >
           {getFieldDecorator('text', {
@@ -54,23 +54,22 @@ class AutoForm extends Component {
             <InputAutoFocus
               inputType="textarea"
               rows={10}
-              placeholder="请输入弹幕，别太长, 每条一行， 随机发送其中一条"
+              placeholder="每行一条弹幕，随机发送"
             />
           )}
         </FormItem>
         <FormItem
           {...formItemLayout}
           label="重复次数"
-          hasFeedback
         >
           {getFieldDecorator('repeat', {
             rules: [
-              {
-                max: 1000, message: '1000 max'
-              },
-              {
-                min: 1, message: '1 min'
-              }
+              // {
+              //   max: 1000, message: '1000 max'
+              // },
+              // {
+              //   min: 1, message: '1 min'
+              // }
             ],
             initialValue: repeat
           })(
@@ -80,20 +79,19 @@ class AutoForm extends Component {
         <FormItem
           {...formItemLayout}
           label="发送间隔(秒)"
-          hasFeedback
         >
-          {getFieldDecorator('repeat', {
+          {getFieldDecorator('sep', {
             rules: [
-              {
-                max: 5000, message: '5000 max'
-              },
-              {
-                min: 20, message: '20 min'
-              }
+              // {
+              //   max: 5000, message: '5000 max'
+              // },
+              // {
+              //   min: 20, message: '20 min'
+              // }
             ],
             initialValue: sep
           })(
-            <InputNumber min={20} max={5000} step={1} />
+            <InputNumber min={5} max={5000} step={1} />
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
@@ -106,6 +104,7 @@ class AutoForm extends Component {
             >加入发送队列</Button>
             <Button
               type="ghost"
+              className="mg1l"
               onClick={this.reset}
             >重置</Button>
           </p>

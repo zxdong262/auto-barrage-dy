@@ -1,14 +1,14 @@
 import React from 'react'
 import {
-  Icon, Tabs, List,
+  Tabs, List,
   Button, Badge
 } from 'antd'
 import _ from 'lodash'
 import AutoForm from './form'
 import {generate} from 'shortid'
-import TextHandler from './text-handler'
 import copy from 'json-deep-copy'
 
+const ListItem = List.Item
 const {TabPane} = Tabs
 
 export default class App extends React.PureComponent {
@@ -16,37 +16,27 @@ export default class App extends React.PureComponent {
     tasks: [],
     working: false,
     started: false,
-    currentTarget: null,
-    hide: false
-  }
-
-  toggle = () => {
-    this.setState(old => {
-      return {
-        hide: !old.hide
-      }
-    })
+    currentTarget: null
   }
 
   pause = () => {
+    clearTimeout(this.xtimer)
     this.setState({
-      curretTarget: null,
-      working: false
+      working: false,
+      currentTarget: null
     })
   }
 
   resume = () => {
     this.setState({
-      working: true,
-      curretTarget: this.state.tasks[0]
-    })
+      working: true
+    }, this.next)
   }
-
 
   onReportId = null
   //this means one phone call finished
   //lets handle the result
-  onReport = ({target = {}}) => {
+  onReport = (target = {}) => {
     if (!this.state.working || !target.id) {
       return
     }
@@ -55,30 +45,44 @@ export default class App extends React.PureComponent {
     }
     clearTimeout(this.xtimer)
     this.onReportId = target.id
-    let {delay} = target
+    let {delay, text} = target
+    let top = window.top || window
+    console.log(text, 'text')
+    top.postMessage({
+      type: 'ab-msg',
+      text
+    }, '*')
     this.setState(old => {
       let {id} = target
       let tasks = copy(old.tasks).filter(t => t.id !== id)
       return {
         tasks,
-        currentTarget: null
+        currentTarget: tasks[0]
       }
     }, () => {
       this.xtimer = setTimeout(
-        () => {
-          this.setState(old => {
-            return {
-              currentTarget: old.tasks[0]
-            }
-          })
-        },
+        this.next,
         delay
       )
     })
   }
 
+  next = () => {
+    let currentTarget = this.state.tasks[0]
+    if (!currentTarget) {
+      return this.setState({
+        started: false
+      })
+    }
+    this.setState(old => {
+      return {
+        currentTarget: old.tasks[0]
+      }
+    }, this.startQueue)
+  }
+
   queue = async ({text, repeat, sep}) => {
-    let ns = text.split(/\n/)
+    let ns = text.split(/\n/).filter(f => f)
     let tasks = []
     let {length} = ns
     for (let i = 0; i < repeat;i ++) {
@@ -108,23 +112,37 @@ export default class App extends React.PureComponent {
       this.setState({
         working: true,
         started: true,
-        curretTarget: tasks[0] || null
-      })
+        currentTarget: tasks[0] || null
+      }, this.startQueue)
     }
   }
 
+  startQueue = () => {
+    this.onReport(this.state.currentTarget)
+  }
+
+  clear = () => {
+    clearTimeout(this.xtimer)
+    this.setState({
+      working: false,
+      started: false,
+      currentTarget: null,
+      tasks: []
+    })
+  }
+
   renderCurrentTarget = () => {
-    let {curretTarget} = this.state
-    if (!curretTarget) {
+    let {currentTarget} = this.state
+    if (!currentTarget) {
       return null
     }
     let {
       text,
       delay
-    } = curretTarget
+    } = currentTarget
     return (
       <div className="current-target pd1">
-        正在发送 {text}, {delay}秒后发送下一条
+        正在发送 {text}, {Math.floor(delay/1000)}秒后发送下一条
       </div>
     )
   }
@@ -154,11 +172,13 @@ export default class App extends React.PureComponent {
       id
     } = item
     return (
-      <div className="fix pd2" key={id}>
-        <div className="fleft">
-          {text}
+      <ListItem>
+        <div className="fix pd2x pd1y" key={id}>
+          <div className="fleft">
+            {text}
+          </div>
         </div>
-      </div>
+      </ListItem>
     )
   }
 
@@ -168,6 +188,9 @@ export default class App extends React.PureComponent {
         dataSource={arr}
         bordered
         renderItem={this.renderItem}
+        pagination={{
+          total: arr.length
+        }}
       />
     )
   }
@@ -189,12 +212,14 @@ export default class App extends React.PureComponent {
   renderQueueList = () => {
     let {
       working,
-      started
+      started,
+      tasks
     } = this.state
     let extra = started
       ? (
         <Button
           type="primary"
+          key="pauser"
           onClick={
             working
               ? this.pause
@@ -209,13 +234,25 @@ export default class App extends React.PureComponent {
         </Button>
       )
       : null
+    let clearBtn = tasks.length
+      ? (
+        <Button
+          type="primary"
+          key="clearbtn"
+          className="mg1r"
+          onClick={this.clear}
+        >
+          清空所有队列
+        </Button>
+      )
+      : null
     let arrNames = [
       'tasks'
     ]
     return (
       <Tabs
         defaultActiveKey={arrNames[0]}
-        tabBarExtraContent={extra}
+        tabBarExtraContent={[clearBtn, extra]}
       >
         {
           arrNames.map(this.renderPane)
@@ -235,40 +272,20 @@ export default class App extends React.PureComponent {
 
   render() {
     let {
-      hide,
-      loading,
-      currentTarget
+      loading
     } = this.state
-    let cls = hide
-      ? 'ardy-hide'
-      : ''
-    let type = hide
-      ? 'arrow-right'
-      : 'arrow-left'
     return (
-      <div id="ardy" className={cls}>
-
-        <div className="pd2">
-          <Icon
-            type={type}
-            className="pointer"
-            onClick={this.toggle}
-          />
-        </div>
-        <div className="ardy-content">
-          <div className="pd2y">
+      <div id="ardy">
+        <div className="ardy-content pd2">
+          <h1 className="pd2y">
             批城手扶独轮车
-          </div>
+          </h1>
           <AutoForm
             stop={this.stop}
             queue={this.queue}
             loading={loading}
           />
           {this.renderProgress()}
-          <TextHandler
-            target={currentTarget}
-            report={this.onReport}
-          />
         </div>
       </div>
     )

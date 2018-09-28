@@ -33,7 +33,7 @@ const pug = {
 }
 
 var config = {
-  mode: 'development',
+  mode: process.env.NODE_ENV || 'development',
   entry: {
     index: './src/app/index.pug',
     app: './src/js/index.jsx'
@@ -44,6 +44,10 @@ var config = {
     publicPath: '/',
     chunkFilename: '[name].[hash].js',
     libraryTarget: 'var'
+  },
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM'
   },
   watch: true,
   resolve: {
@@ -130,5 +134,11 @@ var config = {
   }
 }
 
+if (process.env.NODE_ENV === 'production') {
+  delete config.devServer
+  delete config.devtool
+  delete config.watch
+  config.plugins = config.plugins.slice(0, config.plugins.length - 1)
+}
 module.exports = config
 
