@@ -53,7 +53,7 @@ class AutoForm extends Component {
           })(
             <InputAutoFocus
               inputType="textarea"
-              rows={10}
+              rows={4}
               placeholder="每行一条弹幕，随机发送"
             />
           )}

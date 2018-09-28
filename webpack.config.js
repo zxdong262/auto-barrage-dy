@@ -118,7 +118,10 @@ var config = {
       collections: true,
       paths: true
     }),
-    new ExtraneousFileCleanupPlugin(opts)
+    //new ExtraneousFileCleanupPlugin(opts),
+    new webpack.DefinePlugin({
+      'process.env.siteConfigs': JSON.stringify(sysConfigDefault.siteConfigs)
+    })
   ]
 }
 

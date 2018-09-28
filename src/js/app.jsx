@@ -93,7 +93,7 @@ export default class App extends React.PureComponent {
       )
       tasks.push({
         id: 'id_' + generate(),
-        text: tx,
+        text: tx + (i % 10),
         delay: delay
       })
     }
