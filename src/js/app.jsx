@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   Tabs, List,
-  Button, Badge
+  Button, Badge, Icon
 } from 'antd'
 import _ from 'lodash'
 import AutoForm from './form'
@@ -33,6 +33,11 @@ export default class App extends React.PureComponent {
     }, this.next)
   }
 
+  getRandomTarget = (tasks) => {
+    let n = _.random(0, tasks.length - 1)
+    return tasks[n]
+  }
+
   onReportId = null
   //this means one phone call finished
   //lets handle the result
@@ -57,7 +62,7 @@ export default class App extends React.PureComponent {
       let tasks = copy(old.tasks).filter(t => t.id !== id)
       return {
         tasks,
-        currentTarget: tasks[0]
+        currentTarget: this.getRandomTarget(tasks)
       }
     }, () => {
       this.xtimer = setTimeout(
@@ -76,7 +81,7 @@ export default class App extends React.PureComponent {
     }
     this.setState(old => {
       return {
-        currentTarget: old.tasks[0]
+        currentTarget: this.getRandomTarget(old.tasks)
       }
     }, this.startQueue)
   }
@@ -94,6 +99,7 @@ export default class App extends React.PureComponent {
       tasks.push({
         id: 'id_' + generate(),
         text: tx + (i % 10),
+        coreText: tx,
         delay: delay
       })
     }
@@ -112,13 +118,19 @@ export default class App extends React.PureComponent {
       this.setState({
         working: true,
         started: true,
-        currentTarget: tasks[0] || null
+        currentTarget: this.getRandomTarget(tasks) || null
       }, this.startQueue)
     }
   }
 
   startQueue = () => {
     this.onReport(this.state.currentTarget)
+  }
+
+  onFilter = coreText => {
+    this.setState({
+      tasks: this.state.tasks.filter(t => t.coreText !== coreText)
+    })
   }
 
   clear = () => {
@@ -142,7 +154,7 @@ export default class App extends React.PureComponent {
     } = currentTarget
     return (
       <div className="current-target pd1">
-        正在发送 {text}, {Math.floor(delay/1000)}秒后发送下一条
+        正在发送 <code>{text}</code>, {Math.floor(delay/1000)}秒后发送下一条
       </div>
     )
   }
@@ -169,13 +181,22 @@ export default class App extends React.PureComponent {
   renderItem = item => {
     let {
       text,
-      id
+      id,
+      coreText
     } = item
     return (
       <ListItem>
-        <div className="fix pd2x pd1y" key={id}>
+        <div className="fix pd2x pd1y autobb-item-wrap" key={id}>
           <div className="fleft">
             {text}
+          </div>
+          <div className="fright">
+            <Icon
+              type="close"
+              className="autobb-on-filter"
+              onClick={() => this.onFilter(coreText)}
+              title="去掉所有同样的弹幕"
+            />
           </div>
         </div>
       </ListItem>
