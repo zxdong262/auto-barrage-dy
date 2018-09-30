@@ -1,0 +1,6 @@
+#!/bin/bash
+npm run build-app
+git add --all
+git commit -m 'update'
+git push
+git push origin master:gh-pages
