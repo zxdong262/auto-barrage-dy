@@ -306,7 +306,6 @@ export default class App extends React.PureComponent {
             </a>
             <span className="iblock">批城手扶弹幕独轮车</span>
           </h1>
-          <p>（铁汁，帮我跟群管理说下，放我进群, qq:986839138，斗鱼id: zxdong262）</p>
           <AutoForm
             stop={this.stop}
             queue={this.queue}
