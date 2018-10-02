@@ -30,7 +30,7 @@ class AutoForm extends Component {
     const {
       text,
       repeat = 10,
-      sep = 5
+      sep = 25
     } = this.props
     return (
       <Form
@@ -73,7 +73,7 @@ class AutoForm extends Component {
             ],
             initialValue: repeat
           })(
-            <InputNumber min={1} max={1000} step={1} />
+            <InputNumber min={1} max={50} step={1} />
           )}
         </FormItem>
         <FormItem
@@ -91,7 +91,7 @@ class AutoForm extends Component {
             ],
             initialValue: sep
           })(
-            <InputNumber min={5} max={5000} step={1} />
+            <InputNumber min={25} max={5000} step={1} />
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
