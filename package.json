@@ -1,6 +1,6 @@
 {
   "name": "auto-barrage-dy",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "RingCentral Embeddable Voice with chrome extension for HubSpot",
   "main": "index.js",
   "scripts": {
