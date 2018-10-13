@@ -52,7 +52,6 @@ export default class App extends React.PureComponent {
     this.onReportId = target.id
     let {delay, text} = target
     let top = window.top || window
-    console.log(text, 'text')
     top.postMessage({
       type: 'ab-msg',
       text
