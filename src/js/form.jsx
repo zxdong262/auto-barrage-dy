@@ -17,6 +17,7 @@ class AutoForm extends Component {
     e.preventDefault()
     let res = await this.validateFieldsAndScroll()
     if (!res) return
+    localStorage.setItem('auto_sep', res.sep)
     this.props.queue(res)
     this.reset()
   }
@@ -75,7 +76,6 @@ class AutoForm extends Component {
           })(
             <InputNumber
               min={1} max={100000} step={1}
-              onChange={v => localStorage.setItem('auto_sep', v)}
             />
           )}
         </FormItem>
