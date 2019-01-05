@@ -308,7 +308,8 @@ export default class App extends React.PureComponent {
 
   render() {
     let {
-      loading
+      loading,
+      topHref
     } = this.state
     return (
       <div id="ardy">
@@ -321,12 +322,18 @@ export default class App extends React.PureComponent {
             </a>
             <span className="iblock">批城手扶弹幕独轮车</span>
           </h1>
-          <AutoForm
-            stop={this.stop}
-            queue={this.queue}
-            loading={loading}
-            topHref={this.state.topHref}
-          />
+          {
+            topHref
+              ? (
+                <AutoForm
+                  stop={this.stop}
+                  queue={this.queue}
+                  loading={loading}
+                  topHref={this.state.topHref}
+                />
+              )
+              : <div>载入中...</div>
+          }
           {this.renderProgress()}
         </div>
       </div>
