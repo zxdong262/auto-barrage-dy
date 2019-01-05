@@ -45,7 +45,7 @@ var config = {
     app: './src/js/index.jsx'
   },
   output: {
-    path: __dirname + '/app',
+    path: __dirname + '/docs',
     filename: '[name].bundle.js',
     publicPath: '/',
     chunkFilename: '[name].[hash].js',
