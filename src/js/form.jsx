@@ -30,7 +30,7 @@ class AutoForm extends Component {
     const {
       text,
       repeat = 100,
-      sep = 8
+      sep = localStorage.setItem('auto_sep') || 8
     } = this.props
     return (
       <Form
@@ -73,7 +73,10 @@ class AutoForm extends Component {
             ],
             initialValue: repeat
           })(
-            <InputNumber min={1} max={100000} step={1} />
+            <InputNumber
+              min={1} max={100000} step={1}
+              onChange={v => localStorage.setItem('auto_sep', v)}
+            />
           )}
         </FormItem>
         <FormItem
