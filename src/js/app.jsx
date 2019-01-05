@@ -331,7 +331,13 @@ export default class App extends React.PureComponent {
                   topHref={topHref}
                 />
               )
-              : <div>载入中...</div>
+              : (
+                <div>
+                  加载中...如果一直无法加载,请到
+                https://github.com/zxdong262/auto-barrage-dy/releases
+                下载新版插件,文件名 dist.zip
+                </div>
+              )
           }
           {this.renderProgress()}
         </div>
