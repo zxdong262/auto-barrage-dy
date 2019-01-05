@@ -333,9 +333,9 @@ export default class App extends React.PureComponent {
               )
               : (
                 <div>
-                  加载中...如果一直无法加载,请到
-                https://github.com/zxdong262/auto-barrage-dy/releases
-                下载新版插件,文件名 dist.zip
+                  <b>加载中...出于限制在562590使用的目的,已经升级,如果一直无法加载,请到</b>
+                  <a href="https://github.com/zxdong262/auto-barrage-dy/releases">https://github.com/zxdong262/auto-barrage-dy/releases</a>
+                  <b>下载新版插件,文件名 dist.zip</b>
                 </div>
               )
           }
