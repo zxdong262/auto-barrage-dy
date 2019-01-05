@@ -8,6 +8,7 @@ import InputAutoFocus from './common/input-auto-focus'
 import {formItemLayout, tailFormItemLayout} from './common/form-layout'
 
 const FormItem = Form.Item
+const in562590 = window.top.location.href.includes('562590')
 
 @Form.create()
 @validateFieldsAndScroll
@@ -29,9 +30,10 @@ class AutoForm extends Component {
 
   render() {
     const {getFieldDecorator} = this.props.form
+    const initRepeat = in562590 ? 3 : 100
+    const repeatMax = in562590 ? 5 : 10000
     const {
       text,
-      repeat = 100,
       sep = localStorage.getItem('auto_sep') || 8
     } = this.props
     return (
@@ -73,10 +75,10 @@ class AutoForm extends Component {
               //   min: 1, message: '1 min'
               // }
             ],
-            initialValue: repeat
+            initialValue: initRepeat
           })(
             <InputNumber
-              min={1} max={100000} step={1}
+              min={1} max={repeatMax} step={1}
             />
           )}
         </FormItem>
