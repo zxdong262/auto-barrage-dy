@@ -16,7 +16,22 @@ export default class App extends React.PureComponent {
     tasks: [],
     working: false,
     started: false,
-    currentTarget: null
+    currentTarget: null,
+    topHref: ''
+  }
+
+  componentDidMount() {
+    window.addEventListener('message', (e) => {
+      if (!e.data) {
+        return
+      }
+      if (!e.data.type !== 'url') {
+        return
+      }
+      this.setState({
+        topHref: e.data.href
+      })
+    })
   }
 
   pause = () => {
@@ -309,6 +324,7 @@ export default class App extends React.PureComponent {
             stop={this.stop}
             queue={this.queue}
             loading={loading}
+            topHref={this.state.topHref}
           />
           {this.renderProgress()}
         </div>

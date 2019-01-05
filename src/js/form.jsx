@@ -30,6 +30,7 @@ class AutoForm extends Component {
 
   render() {
     const {getFieldDecorator} = this.props.form
+    const in562590 = this.props.topHref.includes('562590')
     const initRepeat = in562590 ? 3 : 100
     const repeatMax = in562590 ? 5 : 10000
     const {
