@@ -18,6 +18,7 @@ class AutoForm extends Component {
     let res = await this.validateFieldsAndScroll()
     if (!res) return
     localStorage.setItem('auto_sep', res.sep)
+    localStorage.setItem('auto_text', res.text)
     this.props.queue(res)
     this.reset()
   }
@@ -29,7 +30,7 @@ class AutoForm extends Component {
   render() {
     const {getFieldDecorator} = this.props.form
     const {
-      text,
+      text = localStorage.getItem('auto_text') || undefined,
       repeat = 100,
       sep = localStorage.getItem('auto_sep') || 8
     } = this.props
