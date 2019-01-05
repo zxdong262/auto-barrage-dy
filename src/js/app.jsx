@@ -22,11 +22,10 @@ export default class App extends React.PureComponent {
 
   componentDidMount() {
     window.addEventListener('message', (e) => {
-      console.log(e.data, 'ed')
       if (!e.data) {
         return
       }
-      if (!e.data.type !== 'url') {
+      if (e.data.type !== 'url') {
         return
       }
       this.setState({
@@ -329,7 +328,7 @@ export default class App extends React.PureComponent {
                   stop={this.stop}
                   queue={this.queue}
                   loading={loading}
-                  topHref={this.state.topHref}
+                  topHref={topHref}
                 />
               )
               : <div>载入中...</div>
