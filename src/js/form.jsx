@@ -91,7 +91,7 @@ class AutoForm extends Component {
             ],
             initialValue: sep
           })(
-            <InputNumber min={8} max={5000} step={1} />
+            <InputNumber min={1} max={5000} step={1} />
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
