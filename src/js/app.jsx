@@ -22,6 +22,7 @@ export default class App extends React.PureComponent {
 
   componentDidMount() {
     window.addEventListener('message', (e) => {
+      console.log(e.data, 'ed')
       if (!e.data) {
         return
       }
