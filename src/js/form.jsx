@@ -32,7 +32,7 @@ class AutoForm extends Component {
     const {getFieldDecorator} = this.props.form
     const in562590 = this.props.topHref.includes('562590')
     const initRepeat = in562590 ? 10 : 100
-    const repeatMax = in562590 ? 20 : 10000
+    const repeatMax = in562590 ? 2000 : 10000
     const {
       text,
       sep = localStorage.getItem('auto_sep') || 8
