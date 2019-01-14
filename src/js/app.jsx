@@ -17,7 +17,7 @@ export default class App extends React.PureComponent {
     working: false,
     started: false,
     currentTarget: null,
-    topHref: ''
+    topHref: 'g'
   }
 
   componentDidMount() {

@@ -8,7 +8,6 @@ import InputAutoFocus from './common/input-auto-focus'
 import {formItemLayout, tailFormItemLayout} from './common/form-layout'
 
 const FormItem = Form.Item
-const in562590 = false
 
 @Form.create()
 @validateFieldsAndScroll
