@@ -69,7 +69,7 @@ export default class App extends React.PureComponent {
     let top = window.top || window
     top.postMessage({
       type: 'ab-msg',
-      text
+      text: `[🍓]${text}`
     }, '*')
     this.setState(old => {
       let {id} = target

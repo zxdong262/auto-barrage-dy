@@ -58,7 +58,7 @@ class AutoForm extends Component {
             <InputAutoFocus
               inputType="textarea"
               rows={4}
-              placeholder="每行一条弹幕，随机发送"
+              placeholder="每行一条弹幕，随机发送,别太长,会被截掉"
             />
           )}
         </FormItem>
