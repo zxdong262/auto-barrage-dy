@@ -16,7 +16,22 @@ export default class App extends React.PureComponent {
     tasks: [],
     working: false,
     started: false,
-    currentTarget: null
+    currentTarget: null,
+    topHref: 'g'
+  }
+
+  componentDidMount() {
+    window.addEventListener('message', (e) => {
+      if (!e.data) {
+        return
+      }
+      if (e.data.type !== 'url') {
+        return
+      }
+      this.setState({
+        topHref: e.data.href
+      })
+    })
   }
 
   pause = () => {
@@ -52,10 +67,9 @@ export default class App extends React.PureComponent {
     this.onReportId = target.id
     let {delay, text} = target
     let top = window.top || window
-    console.log(text, 'text')
     top.postMessage({
       type: 'ab-msg',
-      text
+      text: `[🍓]${text.replace(/母狗|卖批女/g, '我爱王佩')}`
     }, '*')
     this.setState(old => {
       let {id} = target
@@ -293,7 +307,8 @@ export default class App extends React.PureComponent {
 
   render() {
     let {
-      loading
+      loading,
+      topHref
     } = this.state
     return (
       <div id="ardy">
@@ -306,11 +321,24 @@ export default class App extends React.PureComponent {
             </a>
             <span className="iblock">批城手扶弹幕独轮车</span>
           </h1>
-          <AutoForm
-            stop={this.stop}
-            queue={this.queue}
-            loading={loading}
-          />
+          {
+            topHref
+              ? (
+                <AutoForm
+                  stop={this.stop}
+                  queue={this.queue}
+                  loading={loading}
+                  topHref={topHref}
+                />
+              )
+              : (
+                <div>
+                  <b>加载中...已经升级,如果一直无法加载,请到</b>
+                  <a href="https://github.com/zxdong262/auto-barrage-dy/releases">https://github.com/zxdong262/auto-barrage-dy/releases</a>
+                  <b>下载新版插件,文件名 dist.zip</b>
+                </div>
+              )
+          }
           {this.renderProgress()}
         </div>
       </div>

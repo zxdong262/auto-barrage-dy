@@ -17,6 +17,8 @@ class AutoForm extends Component {
     e.preventDefault()
     let res = await this.validateFieldsAndScroll()
     if (!res) return
+    localStorage.setItem('auto_sep', res.sep)
+    //localStorage.setItem('auto_text', res.text)
     this.props.queue(res)
     this.reset()
   }
@@ -27,10 +29,12 @@ class AutoForm extends Component {
 
   render() {
     const {getFieldDecorator} = this.props.form
+    const in562590 = this.props.topHref.includes('562590')
+    const initRepeat = in562590 ? 10 : 100
+    const repeatMax = in562590 ? 2000 : 10000
     const {
       text,
-      repeat = 10,
-      sep = 5
+      sep = localStorage.getItem('auto_sep') || 8
     } = this.props
     return (
       <Form
@@ -54,7 +58,7 @@ class AutoForm extends Component {
             <InputAutoFocus
               inputType="textarea"
               rows={4}
-              placeholder="每行一条弹幕，随机发送"
+              placeholder="每行一条弹幕，随机发送,别太长,会被截掉"
             />
           )}
         </FormItem>
@@ -71,9 +75,11 @@ class AutoForm extends Component {
               //   min: 1, message: '1 min'
               // }
             ],
-            initialValue: repeat
+            initialValue: initRepeat
           })(
-            <InputNumber min={1} max={1000} step={1} />
+            <InputNumber
+              min={1} max={repeatMax} step={1}
+            />
           )}
         </FormItem>
         <FormItem
@@ -91,7 +97,7 @@ class AutoForm extends Component {
             ],
             initialValue: sep
           })(
-            <InputNumber min={5} max={5000} step={1} />
+            <InputNumber min={1} max={5000} step={1} />
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
