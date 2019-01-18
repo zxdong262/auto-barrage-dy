@@ -79,7 +79,6 @@ export default class App extends React.PureComponent {
     let {delay, text} = target
     let top = window.top || window
     let msg = `[${randName()}]${text.replace(/母狗|卖批女/g, '我爱王佩')}`
-    console.log(msg)
     top.postMessage({
       type: 'ab-msg',
       text: msg
