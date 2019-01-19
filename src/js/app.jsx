@@ -10,13 +10,22 @@ import copy from 'json-deep-copy'
 
 const ListItem = List.Item
 const {TabPane} = Tabs
-const names = '暴佩1安排土豪1,🍓🍓🍓,佩佩宝宝,高冷女神王小佩,小佩佩儿,呆佩儿小霸王,软妹小佩佩,小佩佩佩,阿佩,91佩女士,98佩,一姐佩,🍓🍓,排排和佩佩,佩佩和排排,妹中妹,大树苗,乙肝病友协会,转子哥,儒雅随和的艾文,转妹,艾文,永远的老公粉625,平安牛皮糖,冰箱周礼,🍓'.split(',')
+const names = '暴佩1安排土豪1,🍓🍓🍓,佩佩宝宝,高冷女神王小佩,小佩佩儿,呆佩儿小霸王,软妹小佩佩,小佩佩佩,王佩,91佩女士,98佩,一姐佩,🍓🍓,排排和佩佩,佩佩和排排,妹中妹,大树苗,乙肝病友协会,转子哥,儒雅随和的艾文,转妹,艾文,永远的老公粉625,平安牛皮糖,冰箱周礼,🍓'.split(',')
 function randName() {
+  let len = names.length
+  let r = Math.floor(Math.random() * len)
+  return names[r]
+}
+function seedName() {
   let d = new Date()
   let y = d.getFullYear()
   let m = d.getMonth()
   let dt = d.getDate()
-  let n = y * 365 + m * 30 + dt - 9
+  let seed = y * 365 + m * 30 + dt - 9
+  if (seed % 2) {
+    return randName()
+  }
+  let n = Math.floor( seed / 2)
   let len = names.length
   let r = n % len
   return names[r]
@@ -78,7 +87,8 @@ export default class App extends React.PureComponent {
     this.onReportId = target.id
     let {delay, text} = target
     let top = window.top || window
-    let msg = `[${randName()}]${text.replace(/母狗|卖批女/g, '我爱王佩')}`
+    let msg = `[${seedName()}]${text.replace(/母狗|卖批女/g, '我爱王佩')}`
+    console.log(msg)
     top.postMessage({
       type: 'ab-msg',
       text: msg
