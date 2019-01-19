@@ -362,6 +362,7 @@ export default class App extends React.PureComponent {
               )
           }
           {this.renderProgress()}
+          <p>如果因为斗鱼改版无法正常工作请联系zxdong@gmail.com更新</p>
         </div>
       </div>
     )
