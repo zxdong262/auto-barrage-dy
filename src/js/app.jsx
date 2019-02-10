@@ -22,7 +22,7 @@ function seedName() {
   let m = d.getMonth()
   let dt = d.getDate()
   let seed = y * 365 + m * 30 + dt - 9
-  if (seed % 2) {
+  if (true) {
     return randName()
   }
   let n = Math.floor( seed / 2)
