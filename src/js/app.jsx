@@ -37,6 +37,7 @@ export default class App extends React.PureComponent {
     working: false,
     started: false,
     currentTarget: null,
+    prefix: false,
     topHref: 'g'
   }
 
@@ -51,6 +52,12 @@ export default class App extends React.PureComponent {
       this.setState({
         topHref: e.data.href
       })
+    })
+  }
+
+  changePrefix = prefix => {
+    this.setState({
+      prefix
     })
   }
 
@@ -77,6 +84,7 @@ export default class App extends React.PureComponent {
   //this means one phone call finished
   //lets handle the result
   onReport = (target = {}) => {
+    let {prefix} = this.state
     if (!this.state.working || !target.id) {
       return
     }
@@ -87,7 +95,8 @@ export default class App extends React.PureComponent {
     this.onReportId = target.id
     let {delay, text} = target
     let top = window.top || window
-    let msg = `[${seedName()}]${text.replace(/母狗|卖批女/g, '我爱王佩')}`
+    let pre = prefix ? `[${seedName()}]` : ''
+    let msg = `${pre}${text.replace(/母狗|卖批女/g, '我爱王佩')}`
     console.log(msg)
     top.postMessage({
       type: 'ab-msg',
@@ -330,7 +339,8 @@ export default class App extends React.PureComponent {
   render() {
     let {
       loading,
-      topHref
+      topHref,
+      prefix
     } = this.state
     return (
       <div id="ardy">
@@ -350,6 +360,8 @@ export default class App extends React.PureComponent {
                   stop={this.stop}
                   queue={this.queue}
                   loading={loading}
+                  prefix={prefix}
+                  changePrefix={this.changePrefix}
                   topHref={topHref}
                 />
               )

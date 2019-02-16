@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import {
-  Form, Button,
+  Form, Button, Switch,
   InputNumber
 } from 'antd'
 import {validateFieldsAndScroll} from './common/dec-validate-and-scroll'
@@ -34,6 +34,8 @@ class AutoForm extends Component {
     const repeatMax = in562590 ? 2000 : 10000
     const {
       text,
+      prefix,
+      changePrefix,
       sep = localStorage.getItem('auto_sep') || 8
     } = this.props
     return (
@@ -44,7 +46,17 @@ class AutoForm extends Component {
       >
         <FormItem
           {...formItemLayout}
-          label="请输入弹幕"
+          label={(
+            <div>
+              <span className="pd1r">请输入弹幕</span>
+              <Switch
+                checked={prefix}
+                onChange={changePrefix}
+                checkedChildren="开启随机前缀"
+                unCheckedChildren="开启随机前缀"
+              />
+            </div>
+          )}
           hasFeedback
         >
           {getFieldDecorator('text', {
