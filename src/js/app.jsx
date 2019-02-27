@@ -141,11 +141,12 @@ export default class App extends React.PureComponent {
       let delay = Math.floor(
         sep * 1000 * (1 + _.random(.1, .2))
       )
+      let tail = i % 2 ? '1' : ''
       tasks.push({
         id: 'id_' + generate(),
-        text: tx + (i % 10),
+        text: tx + tail,
         coreText: tx,
-        delay: delay
+        delay
       })
     }
     this.setState(old => {
