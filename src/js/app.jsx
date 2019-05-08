@@ -31,6 +31,11 @@ function seedName() {
   return names[r]
 }
 
+function randTail() {
+  let pool = '1234567890abcdefghijklmnwuvxyzrstopq;'.split('')
+  return pool[Math.floor(Math.random() * pool.length)]
+}
+
 export default class App extends React.PureComponent {
   state ={
     tasks: [],
@@ -141,7 +146,7 @@ export default class App extends React.PureComponent {
       let delay = Math.floor(
         sep * 1000 * (1 + _.random(.1, .2))
       )
-      let tail = i % 2 ? '1' : ''
+      let tail = randTail()
       tasks.push({
         id: 'id_' + generate(),
         text: tx + tail,
