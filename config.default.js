@@ -5,7 +5,7 @@ let config = {
   devPort: 8020,
   minimize: true,
   siteConfigs: {
-    appUrl: 'https://zxdong262.github.io/auto-barrage-dy/app/index.html'
+    appUrl: 'https://zxdong262.github.io/auto-barrage-dy/index.html'
   }
 }
 

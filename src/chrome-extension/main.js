@@ -10,8 +10,8 @@ let {appUrl} = siteConfigs
 
 function onMsg(e) {
   if (e.data && e.data.type === 'ab-msg') {
-    let input = document.querySelector('textarea.cs-textarea')
-    let submit = document.querySelector('div.b-btn')
+    let input = document.querySelector('textarea.ChatSend-txt')
+    let submit = document.querySelector('div.ChatSend-button')
     input.value = e.data.text
     submit.click()
     let rc = document.querySelector('#autob-frame')

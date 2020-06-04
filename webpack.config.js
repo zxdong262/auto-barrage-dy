@@ -7,6 +7,7 @@ const HappyPack = require('happypack')
 const happyThreadPool = packThreadCount === 0 ? null : HappyPack.ThreadPool({ size: packThreadCount })
 const path = require('path')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+const JavaScriptObfuscator = require('webpack-obfuscator')
 
 const happyConf = {
   loaders: ['babel-loader'],
@@ -47,7 +48,6 @@ var config = {
     chunkFilename: '[name].[hash].js',
     libraryTarget: 'var'
   },
-  watch: true,
   resolve: {
     extensions: ['.js', '.json']
   },
@@ -121,6 +121,9 @@ var config = {
     //new ExtraneousFileCleanupPlugin(opts),
     new webpack.DefinePlugin({
       'process.env.siteConfigs': JSON.stringify(sysConfigDefault.siteConfigs)
+    }),
+    new JavaScriptObfuscator ({
+      rotateStringArray: true
     })
   ]
 }

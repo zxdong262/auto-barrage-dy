@@ -1,6 +1,6 @@
 {
   "name": "auto-barrage-dy",
-  "version": "0.0.4",
+  "version": "0.1.7",
   "description": "RingCentral Embeddable Voice with chrome extension for HubSpot",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "start": "npm run build",
     "c": "./node_modules/.bin/webpack-dev-server --config  webpack.config.dev.js --hot --progress --colors --content-base app/",
     "postinstall": "node bin/post-install",
-    "lint": "./node_modules/.bin/eslint --max-warnings 0 --ext .js src"
+    "lint": "./node_modules/.bin/eslint --max-warnings 0 --ext .js src",
+    "pack": "cross-env NODE_ENV=production ./node_modules/.bin/webpack && node bin/pack"
   },
   "repository": {
     "type": "git",
@@ -83,6 +84,7 @@
     "webpack": "4.16.5",
     "webpack-cli": "2.1.4",
     "webpack-dev-server": "3.1.9",
-    "webpack-extraneous-file-cleanup-plugin": "2.0.0"
+    "webpack-extraneous-file-cleanup-plugin": "2.0.0",
+    "webpack-obfuscator": "^0.28.5"
   }
 }
