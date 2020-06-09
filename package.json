@@ -82,7 +82,7 @@
     "url-loader": "1.1.1",
     "webpack": "4.16.5",
     "webpack-cli": "2.1.4",
-    "webpack-dev-server": "3.1.9",
+    "webpack-dev-server": "3.11.0",
     "webpack-extraneous-file-cleanup-plugin": "2.0.0"
   }
 }
