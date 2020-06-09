@@ -56,8 +56,9 @@ function seedName() {
 }
 
 function randTail() {
-  let pool = '1234567890abcdefghijklmnwuvxyzrstopq;'.split('')
-  return pool[Math.floor(Math.random() * pool.length)]
+  return ''
+  // let pool = '1234567890abcdefghijklmnwuvxyzrstopq;'.split('')
+  // return pool[Math.floor(Math.random() * pool.length)]
 }
 
 export default class App extends React.PureComponent {
